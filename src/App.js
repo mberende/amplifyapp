@@ -1,16 +1,36 @@
 import React from 'react';
-import logo from './logo.svg';
+// import logo from './logo.svg';
 import './App.css';
+
+import Amplify from 'aws-amplify';
+import {AmplifyChatbot} from "@aws-amplify/ui-react";
+
+Amplify.configure({
+  Auth: {
+    identityPoolId: 'eu-central-1:1aa808d4-58cb-4c9c-b069-a69ccc8d4437',
+    region: 'eu-central-1'
+  },
+  Interactions: {
+    bots: {
+      "OrderFlowers": {
+        "name": "OrderFlowers",
+        "alias": "$LATEST",
+        "region": "eu-central-1",
+      },
+    }
+  }
+});
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <h1>Hello from V2</h1>
-      </header>
-    </div>
+    <AmplifyChatbot
+      botName="OrderFlowers"
+      botTitle="Esure"
+      welcomeMessage="Hi Joanna, How can I help you?"
+    />
   );
+
 }
 
 export default App;
